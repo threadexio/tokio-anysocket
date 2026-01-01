@@ -1,0 +1,57 @@
+[package]
+name = "tokio-anysocket"
+version = "0.1.0"
+authors = ["threadexio"]
+edition = "2024"
+description = '''
+Abstracted API over tokio's TCP and Unix streams.
+'''
+readme = "README.md"
+homepage = "https://github.com/threadexio/tokio-anysocket"
+repository = "https://github.com/threadexio/tokio-anysocket"
+license = "Apache-2.0"
+keywords = ["tokio", "async", "tcp", "unix"]
+categories = ["asynchronous", "network-programming"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustc-args = ["--cfg", "tokio_anysocket_nightly"]
+rustdoc-args = ["--cfg", "tokio_anysocket_nightly"]
+
+[dependencies]
+pin-project = "1"
+tokio = { version = "1", features = ["net"] }
+
+serde = { version = "1", optional = true }
+
+[features]
+serde = ["dep:serde"]
+
+[lints.rust]
+missing_docs = "allow"
+arithmetic_overflow = "warn"
+missing_debug_implementations = "warn"
+unexpected_cfgs = "allow"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+style = { level = "warn", priority = -1 }
+perf = { level = "warn", priority = -1 }
+correctness = { level = "warn", priority = -1 }
+complexity = { level = "warn", priority = -1 }
+suspicious = { level = "warn", priority = -1 }
+cast_lossless = "warn"
+cast_possible_wrap = "warn"
+useless_conversion = "warn"
+wrong_self_convention = "warn"
+missing_assert_message = "warn"
+missing_panics_doc = "warn"
+missing_safety_doc = "warn"
+new_without_default = "allow"
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+must_use_candidate = "allow"
+
+[lints.rustdoc]
+all = "warn"
+broken_intra_doc_links = "warn"
