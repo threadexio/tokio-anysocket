@@ -62,7 +62,11 @@ impl Stream {
             }
         }
 
-        Err(last_err.unwrap())
+        let Some(last_err) = last_err else {
+            unreachable!()
+        };
+
+        Err(last_err)
     }
 
     async fn _connect(addr: SocketAddr) -> Result<Self> {

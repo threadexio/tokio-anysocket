@@ -21,7 +21,7 @@ where
 }
 
 pub fn unix_addr_to_path<'a>(x: &'a std::os::unix::net::SocketAddr) -> Cow<'a, Path> {
-    assert!(!x.is_unnamed());
+    assert!(!x.is_unnamed(), "cannot get the path of an unnamed socket");
 
     #[cfg(any(target_os = "linux", target_os = "android"))]
     if let Some(p) = x.as_abstract_name() {
@@ -37,5 +37,6 @@ pub fn unix_addr_to_path<'a>(x: &'a std::os::unix::net::SocketAddr) -> Cow<'a, P
     let path = x
         .as_pathname()
         .expect("path should be Some because x is named");
+
     Cow::Borrowed(path)
 }

@@ -50,7 +50,11 @@ impl Listener {
             }
         }
 
-        Err(last_err.unwrap())
+        let Some(last_err) = last_err else {
+            unreachable!()
+        };
+
+        Err(last_err)
     }
 
     async fn _bind(addr: SocketAddr) -> Result<Self> {
