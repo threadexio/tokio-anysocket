@@ -62,6 +62,11 @@ impl Listener {
             SocketAddr::Tcp(x) => tokio::net::TcpListener::bind(x).await.map(Into::into),
             SocketAddr::Unix(x) => {
                 assert!(!x.is_unnamed(), "cannot bind to an unnamed address");
+
+                if let Some(path) = x.as_pathname() {
+                    let _ = tokio::fs::remove_file(path).await;
+                }
+
                 let x = x.into();
                 tokio::net::UnixListener::bind(unix_addr_to_path(&x)).map(Into::into)
             }

@@ -20,7 +20,7 @@ rustdoc-args = ["--cfg", "tokio_anysocket_nightly"]
 
 [dependencies]
 pin-project = "1"
-tokio = { version = "1", features = ["net"] }
+tokio = { version = "1", features = ["fs", "net"] }
 
 serde = { version = "1", optional = true }
 
